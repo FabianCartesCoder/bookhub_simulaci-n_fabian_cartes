@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center my-4">
+    <h1 class="fw-bold">📖 BookHub</h1>
+    <p class="text-muted fs-5">Comparte, descubre y comenta libros</p>
+</div>
+
+<div class="row g-4 mt-2">
+    <!-- Crear Cuenta -->
+    <div class="col-md-6">
+        <div class="card shadow-sm p-4">
+            <h3 class="mb-3">Crear Cuenta</h3>
+            <form action="/register" method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" name="first_name" class="form-control">
+                    {% with messages = get_flashed_messages(category_filter=["register_first_name"]) %}
+                        {% if messages %}<small class="text-danger">{{ messages[0] }}</small>{% endif %}
+                    {% endwith %}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Apellido</label>
+                    <input type="text" name="last_name" class="form-control">
+                    {% with messages = get_flashed_messages(category_filter=["register_last_name"]) %}
+                        {% if messages %}<small class="text-danger">{{ messages[0] }}</small>{% endif %}
+                    {% endwith %}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">E-mail</label>
+                    <input type="email" name="email" class="form-control">
+                    {% with messages = get_flashed_messages(category_filter=["register_email"]) %}
+                        {% if messages %}<small class="text-danger">{{ messages[0] }}</small>{% endif %}
+                    {% endwith %}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" name="password" class="form-control">
+                    {% with messages = get_flashed_messages(category_filter=["register_password"]) %}
+                        {% if messages %}<small class="text-danger">{{ messages[0] }}</small>{% endif %}
+                    {% endwith %}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Confirmar Contraseña</label>
+                    <input type="password" name="confirm_password" class="form-control">
+                    {% with messages = get_flashed_messages(category_filter=["register_confirm"]) %}
+                        {% if messages %}<small class="text-danger">{{ messages[0] }}</small>{% endif %}
+                    {% endwith %}
+                </div>
+                <button type="submit" class="btn btn-dark w-100">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Iniciar Sesión -->
+    <div class="col-md-6">
+        <div class="card shadow-sm p-4">
+            <h3 class="mb-3">Iniciar Sesión</h3>
+            {% with messages = get_flashed_messages(category_filter=["login_error"]) %}
+                {% if messages %}<div class="alert alert-danger">{{ messages[0] }}</div>{% endif %}
+            {% endwith %}
+            <form action="/login" method="POST">
+                <div class="mb-3">
+                    <label class="form-label">E-mail</label>
+                    <input type="email" name="email" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-dark w-100 mb-3">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
